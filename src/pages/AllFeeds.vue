@@ -1,11 +1,11 @@
 <template>
   <main>
-    <div class="space">
-      <h1>📔 Your Journals</h1>
+    <div class="header">
+      <h1>📔 Feeds</h1>
 
       <div id="create-journal-container" class="shadow">
         <!-- fix to stop page from refreshing when hitting enter:
-           https://stackoverflow.com/questions/2215462/html-form-when-i-hit-enter-it-refreshes-page -->
+             https://stackoverflow.com/questions/2215462/html-form-when-i-hit-enter-it-refreshes-page -->
         <form id="create-new-journal" onkeypress="return event.keyCode != 13">
           <input
             v-model="journal.title"
@@ -21,6 +21,62 @@
             @click="submit()"
           />
         </form>
+      </div>
+    </div>
+    <div
+      v-for="(item, index) in allJournals"
+      :key="index"
+      :journal="{ item, index }"
+      class="card"
+      @delete-journal="deleteJournal"
+      @update-journal="updateJournalTitle"
+    >
+      <img src="//unsplash.it/800" alt="" class="card__img" />
+      <div class="card__body">
+        <h2 class="feed__title">
+          <a href=""
+            >{{ item.data.title }}|Feed
+            titleフィードのタイトルが折り返すとどうなるFeed
+            titleフィードのタイトルが折り返すとどうなる</a
+          >
+        </h2>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud なんとかかんとか日本語版。
+          日本語が続いていると結構行間が狭く見えるのではないだろうかなんとかかんとか
+          日本語版。日本語が続いていると結構行間が狭く見えるのではないだろうか
+          exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+          Duis aute irure dolor in reprehenderit in
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in
+        </p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
+          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+          aliquip ex ea commodo consequat. Duis aute irure dolor in
+          reprehenderit in
+        </p>
       </div>
     </div>
     <div id="journals-container">
@@ -119,16 +175,117 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-#journals-background {
-  max-width: 28rem;
-  padding: 1rem;
-  margin: 1rem;
+<style lang="scss">
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+main {
+  padding: 0;
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6rem;
+  display: grid;
+  grid-row-gap: 2em;
+  background-color: #1f1f1b;
+  color: #fafafa;
+  text-align: justify;
+}
+
+h2 {
+  line-height: 1.6;
+}
+
+a {
+  color: #f7f7f9;
+}
+
+.header,
+.card {
+  // in upper grids second column
+  grid-column: 2;
+  &__img {
+    width: 100%;
+    height: 10vh;
+    object-fit: cover;
+  }
+}
+
+p {
+  margin-bottom: 2em;
+}
+
+header,
+footer {
+  background: #040404;
+  padding: 1em;
+  color: white;
+  grid-column: 1 / -1;
+}
+
+// for mobile
+@media only screen and (max-width: 768px) {
+  body {
+    grid: auto-flow / 20px 1fr 20px;
+  }
+  .card {
+    // display: grid;
+    &__img {
+    }
+  }
+}
+
+// for pc
+@media only screen and (min-width: 768px) and (max-width: 2400px) {
+  body {
+    grid: auto-flow / minmax(10px, 1fr) minmax(300px, 1000px) minmax(10px, 1fr);
+  }
+
+  .card {
+    background-color: inherit;
+    display: grid;
+    grid: auto-flow / 1fr 4fr;
+    grid-gap: 10px;
+
+    &__img {
+      max-height: 60%;
+      position: sticky;
+      top: 0;
+      align-self: start;
+    }
+    &__body {
+      background-color: inherit;
+    }
+  }
+}
+
+// for 4K over
+@media only screen and (min-width: 2400px) {
+  body {
+    padding: 0 5rem;
+    grid: auto-flow / 1fr 1fr 1fr 1fr;
+    grid-gap: 5rem;
+    font-size: 1.5rem;
+    line-height: 2.2;
+  }
+
+  .card {
+    grid-column: auto;
+  }
+}
+
+main {
+  display: grid;
+  grid-row-gap: 2em;
+  grid: auto-flow / minmax(10px, 1fr) minmax(300px, 1000px) minmax(10px, 1fr);
 }
 
 #create-journal-container {
   background: var(--app-secondary-background-color);
-  flex-direction: column;
+  grid-column: 2;
+  width: 100%;
   justify-content: center;
   text-align: center;
   padding: 10px;
@@ -144,6 +301,7 @@ export default {
 }
 
 #journals-container {
+  grid-column: 2;
   display: flex;
   flex-wrap: wrap-reverse;
   justify-content: center;
