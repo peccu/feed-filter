@@ -4,12 +4,12 @@
 
 * {
 
-font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  font-family: 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 
 }
 
 h1, h2, h3 , p , a, input, textarea{
-    color: var(--primary);
+  color: var(--primary);
 }
 
 button {
@@ -19,11 +19,11 @@ button {
   transition: all 0.1s ease 0s;
   width: 100%;
   background: none;
-	color: inherit;
+  color: inherit;
   padding: 5px;
-	font: inherit;
-	cursor: pointer;
-	outline: inherit;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
   background: rgb(197, 196, 196);
   cursor:pointer;
 }
