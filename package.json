@@ -9,7 +9,7 @@
     "build:local": "vue-cli-service build",
     "prebuild": "echo 'Check FaunaDB schemas' && npm run bootstrap-db",
     "lint": "vue-cli-service lint --no-fix ",
-    "lint:--fix": "vue-cli-service lint --no-fix ",
+    "lint:--fix": "vue-cli-service lint --fix ",
     "deploy:preview": "npm run build:local && netlify deploy",
     "deploy:prod": "npm run build:local && netlify deploy --prod ",
     "test:unit": "vue-cli-service test:unit",
