@@ -1,25 +1,27 @@
 /*
-* === COLORS ===
-*/
+ * === COLORS ===
+ */
 [data-theme="light"] {
-    --app-background-color: #FCFAF6;
-    --app-secondary-background-color: white;
-    --primary: rgb(44, 44, 44);
+  --app-background-color: #FCFAF6;
+  // navbar
+  --app-secondary-background-color: white;
+  --primary: rgb(44, 44, 44);
 }
 
 [data-theme="dark"] {
-    --app-background-color: #1f1f1b;
-    --app-secondary-background-color: #040404;
-    --primary: #FFFFFF
+  --app-background-color: #1f1f1b;
+  // navbar
+  --app-secondary-background-color: #040404;
+  --primary: #FFFFFF
 }
 
 [data-theme="sepia"] {
-    --app-background-color: #F1E7D0;
+  --app-background-color: #F1E7D0;
 }
 
 /*
-* === STYLES ===
-*/
+ * === STYLES ===
+ */
 body{
   background-color: var(--app-background-color);
 }
