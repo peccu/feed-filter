@@ -12,6 +12,12 @@ const routes = [
     component: () => import("./pages/Home.vue")
   },
   {
+    path: "/feeds",
+    name: "feeds",
+    component: () => import("./pages/AllFeeds.vue"),
+    meta: { authRequired: true }
+  },
+  {
     path: "/journals",
     name: "journals",
     component: () => import("./pages/AllJournals.vue"),

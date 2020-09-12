@@ -5,6 +5,8 @@
 
       <router-link :to="{ name: 'journals' }">📔 Your Journals</router-link>
 
+      <router-link :to="{ name: 'feeds' }">📔 Your Feeds</router-link>
+
       <router-link id="profile-link" :to="{ name: 'profile' }"
         >🆔 Profile</router-link
       >
