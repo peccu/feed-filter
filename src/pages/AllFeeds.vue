@@ -33,7 +33,7 @@
     >
       <img src="//unsplash.it/800" alt="" class="card__img" />
       <div class="card__body">
-        <h2 class="feed__title">
+        <h2 class="card__title">
           <a href=""
             >{{ item.data.title }}|Feed
             titleフィードのタイトルが折り返すとどうなるFeed
@@ -196,6 +196,7 @@ main {
 
 h2 {
   line-height: 1.6;
+  font-family: 'EB Garamond', serif;
 }
 
 a {
