@@ -1,6 +1,10 @@
 <template>
   <footer>
-    made by<a href="https://twitter.com/chiubaca">chiubaca</a>
+    made by<a href="https://twitter.com/peccul">peccu</a>. based on
+    <a href="https://twitter.com/chiubaca">chiubaca</a>s
+    <a href="https://github.com/chiubaca/vue-netlify-fauna-starter-kit"
+      >vue-netlify-fauna-starter-kit</a
+    >
     <div id="links"></div>
   </footer>
 </template>
