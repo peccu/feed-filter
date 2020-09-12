@@ -154,14 +154,14 @@ input[type="button"] {
   padding: 15px;
   cursor: pointer;
   border-radius: 0 0px 15px 15px;
-  background: #a7a7a7;
+  background: rgb(158, 158, 158);
 }
 input[type="button"]:hover {
-  background: rgb(158, 158, 158);
+  background: rgb(112, 112, 112);
 }
 
 input[type="button"]:active {
-  background: rgb(112, 112, 112);
+  background: rgb(100, 100, 100);
   box-shadow: 0px 0px 0px -4px rgba(0, 0, 0, 0.75);
 }
 </style>
