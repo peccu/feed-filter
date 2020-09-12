@@ -196,7 +196,7 @@ main {
 
 h2 {
   line-height: 1.6;
-  font-family: 'EB Garamond', serif;
+  font-family: "EB Garamond", serif;
 }
 
 a {
