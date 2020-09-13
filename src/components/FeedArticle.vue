@@ -3,12 +3,13 @@
     <img src="//unsplash.it/800" alt="" class="card__img" />
     <div class="card__body">
       <h2 class="card__title">
-        <a href=""
-          >{{ journalTitle }}|Feed
+        <a :href="feedsourceUri"
+          >{{ feedsourceTitle }}|Feed
           titleフィードのタイトルが折り返すとどうなるFeed
           titleフィードのタイトルが折り返すとどうなる</a
         >
       </h2>
+      <p>{{ feedsourceDescription }}</p>
       <p>
         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
         tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim
@@ -37,7 +38,7 @@
 <script>
 export default {
   props: {
-    journal: {
+    feedsource: {
       type: Object
     }
   },
@@ -45,17 +46,21 @@ export default {
     return {
       // when in edit mode, the input for title become editable and toggle the update button
       editMode: false,
-      // on mounted, this hold the journal title and will save changes to the new title if it is edited
-      journalTitle: "",
+      // on mounted, this hold the feedsource title and will save changes to the new title if it is edited
+      feedsourceTitle: "",
+      feedsourceDescription: "",
+      feedsourceUri: "",
       // the card is hidden from view when the user deletes the card, this preserves component index.
       // if the index is not preserved this can cause the card state to get jumbled up and its very confusing for the end-user
       deleted: false
     };
   },
   mounted() {
-    //set the journal title into view and into state
-    this.journalTitle = this.journal.item.data.title;
-    this.$refs.editTitle.value = this.journal.item.data.title;
+    //set the feedsource title into view and into state
+    this.feedsourceTitle = this.feedsource.item.data.title;
+    this.feedsourceDescription = this.feedsource.item.data.description;
+    this.feedsourceUri = this.feedsource.item.data.uri;
+    this.$refs.editTitle.value = this.feedsource.item.data.title;
   },
   methods: {
     enableEditMode() {
@@ -63,21 +68,21 @@ export default {
       // remove readonly mode so that the input is editable
       this.$refs.editTitle.removeAttribute("readonly");
       //set the value of the input so that the user can edit the existing title
-      this.$refs.editTitle.value = this.journal.item.data.title;
+      this.$refs.editTitle.value = this.feedsource.item.data.title;
       this.$refs.editTitle.focus();
     },
-    emitNewJournalTitle() {
+    emitNewFeedsourceTitle() {
       this.editMode = false;
       this.$refs.editTitle.setAttribute("readonly", "true");
 
-      this.$emit("update-journal", {
-        newJournalTitle: this.journalTitle,
-        journalRefID: this.journal.item.ref.value.id,
-        index: this.journal.index
+      this.$emit("update-feedsource", {
+        newFeedsourceTitle: this.feedsourceTitle,
+        feedsourceRefID: this.feedsource.item.ref.value.id,
+        index: this.feedsource.index
       });
     },
-    deleteJournal() {
-      this.$emit("delete-journal", this.journal.item);
+    deleteFeedsource() {
+      this.$emit("delete-feedsource", this.feedsource.item);
       this.deleted = true;
     }
   }

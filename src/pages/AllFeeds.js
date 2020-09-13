@@ -1,82 +1,80 @@
 import {
-  createJournal,
-  getJournals,
-  deleteJournal,
-  updateJournalTitle
-} from "../models/JournalsModel";
-import JournalCard from "../components/JournalCard.vue";
+  createFeedsource,
+  getFeedsources,
+  deleteFeedsource,
+  updateFeedsourceTitle
+} from "../models/FeedSourcesModel";
 import FeedArticle from "../components/FeedArticle.vue";
 
 export default {
   components: {
-    JournalCard,
     FeedArticle
   },
 
   data: function() {
     return {
-      journal: {
+      feedsource: {
         title: ""
       },
-      allJournals: []
+      allFeedsources: []
     };
   },
   beforeMount() {
-    getJournals()
+    getFeedsources()
       .then(resp => {
-        console.log("Got journals from DB", resp.data);
-        this.allJournals = resp.data;
+        console.log("Got feedsources from DB", resp.data);
+        this.allFeedsources = resp.data;
       })
-      .catch(err => console.error("problem getting journals", err));
+      .catch(err => console.error("problem getting feedsources", err));
   },
   methods: {
     /**
      * Sumbit a new post to db
      */
     submit() {
-      createJournal(this.journal)
+      createFeedsource(this.feedsource)
         .then(resp => {
-          alert("New journal created");
-          console.log("journal obj", resp);
-          this.allJournals.push(resp);
+          alert("New feedsource created");
+          console.log("feedsource obj", resp);
+          this.allFeedsources.push(resp);
           if (resp.msg) {
             alert(resp.message);
           }
         })
         .catch(err => {
-          alert("There was a problem creating your journal");
+          alert("There was a problem creating your feedsource");
           console.error(err);
         });
     },
     /**
-     * delete journal
-     *  @param {object} journal - object containing index journal and fauna db journal object
+     * delete feedsource
+     *  @param {object} feedsource - object containing index feedsource and fauna db feedsource object
      */
-    deleteJournal(journal) {
-      deleteJournal(journal)
+    deleteFeedsource(feedsource) {
+      deleteFeedsource(feedsource)
         .then(resp => {
-          console.log("Journal deleted!", resp);
+          console.log("Feedsource deleted!", resp);
         })
         .catch(err => {
           console.error("problem deleting", err);
         });
     },
     /**
-     * update a journal
-     * @param {object} journal - object containing new journla title and fauna db journal object
+     * update a feedsource
+     * @param {object} feedsource - object containing new journla title and fauna db feedsource object
      */
-    updateJournalTitle({ journalRefID, newJournalTitle, index }) {
+    updateFeedsourceTitle({ feedsourceRefID, newFeedsourceTitle, index }) {
       console.log(
-        "Updating new journal title to ",
-        newJournalTitle,
-        journalRefID
+        "Updating new feedsource title to ",
+        newFeedsourceTitle,
+        feedsourceRefID
       );
-      updateJournalTitle(journalRefID, newJournalTitle)
+      updateFeedsourceTitle(feedsourceRefID, newFeedsourceTitle)
         .then(() => {
-          this.allJournals[index].data.title = newJournalTitle;
+          this.allFeedsources[index].data.title = newFeedsourceTitle;
         })
         .catch(err => {
-          console.error("problem updating journal", err);
+          console.error("problem updating feedsource", err);
         });
     }
   }
