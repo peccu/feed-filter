@@ -22,7 +22,7 @@ footer {
   bottom: 0;
   height: 35px;
   text-align: center;
-  color: black;
+  color: var(--primary);
   background-color: var(--app-secondary-background-color);
   a {
     text-decoration: none;
