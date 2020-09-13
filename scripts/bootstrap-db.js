@@ -109,8 +109,8 @@ function checkForFaunaKey() {
     ~~~~~~~~~~~~~~~~~~~~~~~~~
     You can create a your fauna db server secret by following this:
       - https://docs.fauna.com/fauna/current/tutorials/authentication/user.html#setup-server-key
-    
-    Then ensure you have added the server secret into your Netlify site as an environment variable 
+
+    Then ensure you have added the server secret into your Netlify site as an environment variable
     with the key 'FAUNADB_SERVER_SECRET'.
     ~~~~~~~~~~~~~~~~~~~~~~~~~~
       `)
