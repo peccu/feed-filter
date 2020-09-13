@@ -98,6 +98,9 @@ p {
 }
 
 .card {
+  // in upper grids second column
+  grid-column: 2;
+
   text-align: justify;
   &__img {
     width: 100%;
@@ -143,6 +146,9 @@ p {
 // for 4K over
 @media only screen and (min-width: 2400px) {
   .card {
+    // in upper grids second column
+    grid-column: auto;
+
     font-size: 1.4rem;
     line-height: 1.8;
   }

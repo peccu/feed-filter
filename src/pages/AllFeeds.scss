@@ -3,8 +3,7 @@ main {
   grid-row-gap: 2em;
 }
 
-.header,
-FeedArticle {
+.header {
   // in upper grids second column
   grid-column: 2;
 }
@@ -33,9 +32,5 @@ FeedArticle {
   .header {
     // in upper grids second column
     grid-column: 2 / -1;
-  }
-  FeedArticle {
-    // in upper grids second column
-    grid-column: auto;
   }
 }
