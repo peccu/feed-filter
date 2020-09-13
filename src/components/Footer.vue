@@ -1,7 +1,7 @@
 <template>
   <footer>
     made by<a href="https://twitter.com/peccul">peccu</a>. based on
-    <a href="https://twitter.com/chiubaca">chiubaca</a>s
+    <a href="https://twitter.com/chiubaca">chiubaca</a>&apos;s
     <a href="https://github.com/chiubaca/vue-netlify-fauna-starter-kit"
       >vue-netlify-fauna-starter-kit</a
     >
