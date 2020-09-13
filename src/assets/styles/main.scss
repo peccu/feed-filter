@@ -1,11 +1,18 @@
 @import 'theme-colours';
 
 * {
-
   font-family: serif;
-
 }
 
-h1, h2, h3 , p , a, input, textarea{
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--app-background-color);
   color: var(--primary);
 }

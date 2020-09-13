@@ -33,6 +33,7 @@ export default {
 <style lang="scss" scoped>
 nav#nav-bar {
   background-color: var(--app-secondary-background-color);
+  color: var(--primary);
 }
 
 nav#nav-bar #nav-items {
