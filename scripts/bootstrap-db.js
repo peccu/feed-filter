@@ -4,17 +4,73 @@ const chalk = require("chalk");
 
 const q = faunadb.query;
 
-/*  */
-function setupFaunaDB() {
-  console.log(chalk.yellow("Attempting to create the DB schemas..."));
+// create feed resources
+function setupFaunaDBv2(client) {
+  return client
+    .query(
+      q.Do(
+        q.CreateCollection({
+          name: "feed_sources",
+          permissions: {
+            create: q.Collection("users")
+          }
+        }),
+        q.CreateCollection({
+          name: "feed_articles",
+          permissions: {
+            create: q.Collection("users")
+          }
+        })
+      )
+    )
+    .then(() =>
+      client.query(
+        q.Do(
+          q.CreateIndex({
+            name: "feed_sources_by_uri",
+            source: q.Collection("feed_sources"),
+            terms: [
+              {
+                field: ["data", "uri"]
+              }
+            ],
+            unique: true
+          }),
+          q.CreateIndex({
+            name: "all_feed_sources",
+            source: q.Collection("feed_sources"),
+            terms: [
+              {
+                field: ["data", "uri"]
+              }
+            ],
+            permissions: {
+              read: q.Collection("users")
+            }
+          }),
+          q.CreateIndex({
+            name: "feed_articles_by_source",
+            source: q.Collection("feed_articles"),
+            terms: [
+              {
+                field: ["data", "source"]
+              }
+            ],
+            permissions: {
+              read: q.Collection("users")
+            }
+          }),
+          q.CreateIndex({
+            // this index is optional but useful in development for browsing users
+            name: `all_feed_articles`,
+            source: q.Collection("feed_articles")
+          }),
+        )
+      )
+    )
+}
 
-  let key = checkForFaunaKey();
-
-  const client = new faunadb.Client({
-    secret: key
-  });
-
-  /* Based on your requirements, change the schema here */
+function setupFaunaDBv1(client) {
   return client
     .query(
       q.CreateCollection({
@@ -86,10 +142,33 @@ function setupFaunaDB() {
         )
       )
     )
+}
+
+/*  */
+function setupFaunaDB() {
+  console.log(chalk.yellow("Attempting to create the DB schemas..."));
+
+  let key = checkForFaunaKey();
+
+  const client = new faunadb.Client({
+    secret: key
+  });
+
+  /* Based on your requirements, change the schema here */
+  // create collections and indices
+  return setupFaunaDBv1(client)
     .catch(e => {
       if (e.message === "instance already exists") {
-        console.log("Schemas are already created... skipping");
-        process.exit(0);
+        console.log("Schemas(v1) are already created... skipping");
+        setupFaunaDBv2(client).catch(e => {
+          if (e.message === "instance already exists") {
+            console.log("Schemas(v2) are already created... skipping");
+            process.exit(0);
+          } else {
+            console.error("There was a problem bootstrapping the db", e);
+            throw e;
+          }
+        });
       } else {
         console.error("There was a problem bootstrapping the db", e);
         throw e;
