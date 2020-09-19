@@ -60,32 +60,32 @@ export default {
     this.feedsourceTitle = this.feedsource.item.data.title;
     this.feedsourceDescription = this.feedsource.item.data.description;
     this.feedsourceUri = this.feedsource.item.data.uri;
-    this.$refs.editTitle.value = this.feedsource.item.data.title;
-  },
-  methods: {
-    enableEditMode() {
-      this.editMode = true;
-      // remove readonly mode so that the input is editable
-      this.$refs.editTitle.removeAttribute("readonly");
-      //set the value of the input so that the user can edit the existing title
-      this.$refs.editTitle.value = this.feedsource.item.data.title;
-      this.$refs.editTitle.focus();
-    },
-    emitNewFeedsourceTitle() {
-      this.editMode = false;
-      this.$refs.editTitle.setAttribute("readonly", "true");
-
-      this.$emit("update-feedsource", {
-        newFeedsourceTitle: this.feedsourceTitle,
-        feedsourceRefID: this.feedsource.item.ref.value.id,
-        index: this.feedsource.index
-      });
-    },
-    deleteFeedsource() {
-      this.$emit("delete-feedsource", this.feedsource.item);
-      this.deleted = true;
-    }
+    /* this.$refs.editTitle.value = this.feedsource.item.data.title; */
   }
+  /* methods: {
+    *   enableEditMode() {
+    *     this.editMode = true;
+    *     // remove readonly mode so that the input is editable
+    *     this.$refs.editTitle.removeAttribute("readonly");
+    *     //set the value of the input so that the user can edit the existing title
+    *     this.$refs.editTitle.value = this.feedsource.item.data.title;
+    *     this.$refs.editTitle.focus();
+    *   },
+    *   emitNewFeedsourceTitle() {
+    *     this.editMode = false;
+    *     this.$refs.editTitle.setAttribute("readonly", "true");
+
+    *     this.$emit("update-feedsource", {
+    *       newFeedsourceTitle: this.feedsourceTitle,
+    *       feedsourceRefID: this.feedsource.item.ref.value.id,
+    *       index: this.feedsource.index
+    *     });
+    *   },
+    *   deleteFeedsource() {
+    *     this.$emit("delete-feedsource", this.feedsource.item);
+    *     this.deleted = true;
+    *   }
+    * } */
 };
 </script>
 
