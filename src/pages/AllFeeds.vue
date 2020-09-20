@@ -23,7 +23,7 @@
       </div>
     </div>
 
-    <FeedArticle
+    <FeedSource
       v-for="(item, index) in allFeedsources"
       :key="index"
       :feedsource="{ item, index }"

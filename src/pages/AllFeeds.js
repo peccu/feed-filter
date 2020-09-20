@@ -4,11 +4,11 @@ import {
   deleteFeedsource,
   updateFeedsourceTitle
 } from "../models/FeedSourcesModel";
-import FeedArticle from "../components/FeedArticle.vue";
+import FeedSource from "../components/FeedSource.vue";
 
 export default {
   components: {
-    FeedArticle
+    FeedSource
   },
 
   data: function() {
