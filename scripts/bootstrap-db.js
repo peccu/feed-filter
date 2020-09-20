@@ -4,6 +4,57 @@ const chalk = require("chalk");
 
 const q = faunadb.query;
 
+function getVersion(client) {
+  return client.query(
+    q.Map(
+      q.Paginate(q.Match(q.Ref("indexes/schema_version"))),
+      ref => q.Get(ref)
+    )
+  )
+    .then(resp => {
+      console.log(resp)
+      return resp
+    })
+}
+
+// create schema versioning
+function setupFaunaDBv3(client) {
+  return cilent
+    .query(
+      q.Do(
+        q.CreateCollection({
+          name: "application"
+        })
+      )
+    )
+    .then(
+      () =>
+        client.query(
+          q.Do(
+            q.Create(q.Collection("application"), {
+              data: {
+                schema_version: '3'
+              }
+            }),
+            q.CreateIndex({
+              name: `schema_version`,
+              source: q.Collection("application")
+            }),
+            q.DeleteIndex({
+              name: "all_feed_sources"
+            }),
+            q.CreateIndex({
+              name: "my_all_feed_sources",
+              source: q.Collection("feed_sources"),
+              permissions: {
+                read: q.Collection("users")
+              }
+            })
+          )
+        )
+    )
+}
+
 // create feed resources
 function setupFaunaDBv2(client) {
   return client
@@ -163,7 +214,19 @@ function setupFaunaDB() {
         setupFaunaDBv2(client).catch(e => {
           if (e.message === "instance already exists") {
             console.log("Schemas(v2) are already created... skipping");
-            process.exit(0);
+            setupFaunaDBv3(client)
+              .then(() => {
+                getVersion(client)
+              })
+              .catch(e => {
+                if (e.message === "instance already exists") {
+                  console.log("Schemas(v3) are already created... skipping");
+                  process.exit(0);
+                } else {
+                  console.error("There was a problem bootstrapping the db", e);
+                  throw e;
+                }
+              });
           } else {
             console.error("There was a problem bootstrapping the db", e);
             throw e;
