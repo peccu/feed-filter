@@ -19,7 +19,7 @@ function getVersion(client) {
 
 // create schema versioning
 function setupFaunaDBv3(client) {
-  return cilent
+  return client
     .query(
       q.Do(
         q.CreateCollection({
