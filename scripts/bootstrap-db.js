@@ -78,28 +78,6 @@ function setupFaunaDBv2(client) {
       client.query(
         q.Do(
           q.CreateIndex({
-            name: "feed_sources_by_uri",
-            source: q.Collection("feed_sources"),
-            terms: [
-              {
-                field: ["data", "uri"]
-              }
-            ],
-            unique: true
-          }),
-          q.CreateIndex({
-            name: "all_feed_sources",
-            source: q.Collection("feed_sources"),
-            terms: [
-              {
-                field: ["data", "uri"]
-              }
-            ],
-            permissions: {
-              read: q.Collection("users")
-            }
-          }),
-          q.CreateIndex({
             name: "feed_articles_by_source",
             source: q.Collection("feed_articles"),
             terms: [
