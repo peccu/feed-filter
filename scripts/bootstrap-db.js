@@ -6,7 +6,7 @@ const q = faunadb.query;
 
 function getVersion(client) {
   return client.query(
-    q.Max(q.Match(q.Index("max_version")))
+    q.Max(q.Match(q.Index("schema_version")))
   )
     .then(resp => {
       console.log(resp)
