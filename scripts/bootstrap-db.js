@@ -6,10 +6,7 @@ const q = faunadb.query;
 
 function getVersion(client) {
   return client.query(
-    q.Map(
-      q.Paginate(q.Match(q.Ref("indexes/schema_version"))),
-      ref => q.Get(ref)
-    )
+    q.Max(q.Match(q.Index("max_version")))
   )
     .then(resp => {
       console.log(resp)
@@ -19,6 +16,7 @@ function getVersion(client) {
 
 // create schema versioning
 function setupFaunaDBv3(client) {
+  getVersion(client)
   return client
     .query(
       q.Do(
@@ -31,14 +29,18 @@ function setupFaunaDBv3(client) {
       () =>
         client.query(
           q.Do(
+            q.CreateIndex({
+              name: "schema_version",
+              source: q.Collection("application"),
+              terms: [],
+              values: [
+                {field: ['data', 'schema_version']}
+              ]
+            }),
             q.Create(q.Collection("application"), {
               data: {
                 schema_version: '3'
               }
-            }),
-            q.CreateIndex({
-              name: `schema_version`,
-              source: q.Collection("application")
             }),
             q.Delete(q.Ref("indexes/all_feed_sources")),
             q.CreateIndex({
