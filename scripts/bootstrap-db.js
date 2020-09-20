@@ -40,9 +40,7 @@ function setupFaunaDBv3(client) {
               name: `schema_version`,
               source: q.Collection("application")
             }),
-            q.DeleteIndex({
-              name: "all_feed_sources"
-            }),
+            q.Delete(q.Ref("indexes/all_feed_sources")),
             q.CreateIndex({
               name: "my_all_feed_sources",
               source: q.Collection("feed_sources"),

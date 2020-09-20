@@ -27,7 +27,7 @@ export function createFeedsource(feedsourceData) {
 export function getFeedsources() {
   return client
     .query(
-      q.Map(q.Paginate(q.Match(q.Ref("indexes/all_feed_sources"))), ref =>
+      q.Map(q.Paginate(q.Match(q.Ref("indexes/my_all_feed_sources"))), ref =>
         q.Get(ref)
       )
     )
